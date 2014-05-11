@@ -24,7 +24,9 @@ def index():
 
 @app.route("/oauth")
 def oauth():
-	access_token = request.args.get("access_token")
+	access_token = request.args.get("access_token", None)
+	if access_token == None:
+		return redirect("/")
 	data = urlopen("https://www.beeminder.com/api/v1/users/me.json?access_token=%s"%(access_token)).read()
 	data = json.loads(data)
 	return redirect("/calendar/%s?access_token=%s&timezone=%s"%(data["username"], access_token, data["timezone"]))
