@@ -5,7 +5,7 @@ from urllib2 import urlopen, Request
 import json
 from icalendar import Calendar, Event
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 import hashlib
 
 app = Flask(__name__)
@@ -29,12 +29,11 @@ def oauth():
 		return redirect("/")
 	data = urlopen("https://www.beeminder.com/api/v1/users/me.json?access_token=%s"%(access_token)).read()
 	data = json.loads(data)
-	return redirect("/calendar/%s?access_token=%s&timezone=%s"%(data["username"], access_token, data["timezone"]))
+	return redirect("/calendar/%s?access_token=%s"%(data["username"], access_token))
 
 @app.route('/calendar/<username>')
 def calendar(username):
 	access_token = request.args.get("access_token")
-	tz = pytz.timezone(request.args.get("timezone"))
 
 	data = urlopen("https://www.beeminder.com/api/v1/users/%s/goals.json?access_token=%s"%(username, access_token)).read()
 	data = json.loads(data)
@@ -45,8 +44,8 @@ def calendar(username):
 	cal.add('X-WR-CALNAME', 'Beeminder Calendar for %s'%username)
 
 	for goal in data:
-		enddate = datetime.fromtimestamp(goal["losedate"]).replace(tzinfo = tz)
-		startdate = enddate.replace(hour=0, minute=0, second=0)
+		startdate = datetime.fromtimestamp(goal["losedate"]).date()
+		enddate = startdate + timedelta(days = 1)
 		title = goal["title"]
 		event = Event()
 		event.add('summary', "Beeminder fail day for %s" % title)
