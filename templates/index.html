@@ -1,0 +1,39 @@
+{% extends "bootstrap_responsive.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block title %}Beeminder Calendar exporter{% endblock %}
+
+{% block body_content %}
+<a href="https://github.com/palfrey/eventbrite-calendar"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="hero-unit span8 offset2">
+				<h1>Beeminder Calendar</h1>
+				<p>by Tom Parker &lt;<a href="http://mailhide.recaptcha.net/d?k=01mk8ieqMM0P1URascREzxiw==&amp;c=xf1595B3znU7sIBDF9KzW5jGN8_J8-LNk6-WIksw1Xs=" onclick="window.open('http://mailhide.recaptcha.net/d?k=01mk8ieqMM0P1URascREzxiw==&amp;c=xf1595B3znU7sIBDF9KzW5jGN8_J8-LNk6-WIksw1Xs=', '', 'toolbar=0,scrollbars=0,location=0,statusbar=0,menubar=0,resizable=0,width=500,height=300'); return false;" title="Reveal this e-mail address">palf...@tevp.net</a>&gt; <a href="http://tevp.net">http://tevp.net</a></p>
+				<p>
+				Beeminder info
+				</p>
+				<p>
+					<ol>
+						<li>Click "Login to Eventbrite" below, and go through the authorisation steps</li>
+						<li>You'll get redirected to an iCal link. This can be then added to your calendar. 
+						e.g. you can use the "Add by URL" in Google Calendar
+						<img src="{{ url_for("static", filename="google-add-by-url.png")}}" />
+						</li>
+					</ol>
+				</p>
+				<a href="https://www.beeminder.com/apps/authorize?client_id={{beeminder_client_id}}&amp;redirect_uri={{site_redirect_address}}&amp;response_type=token" class="btn btn-large btn-block btn-primary" type="button">Login to Beeminder</a>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="row-fluid">
+				<div class="alert alert-info">
+					<b>Privacy policy:</b> there's no database behind here. I don't store any user data, it's all in your
+					HTTP(s) requests. If you lose the end URL (which has the only really useful bit of data - your OAuth
+					token), you'll have to come back to the front page to make a new one, as I don't store it. If you
+					don't believe me, <a href="https://github.com/palfrey/eventbrite-calendar"><abbr title="Read The Friendly Source">RTFS</abbr></a>.
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
