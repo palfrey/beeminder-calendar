@@ -48,7 +48,7 @@ def calendar(username):
 		enddate = startdate + timedelta(days = 1)
 		title = goal["title"]
 		event = Event()
-		event.add('summary', "Beeminder fail day for %s" % title)
+		event.add('summary', "%s fail day" % title)
 		event.add('dtstart', startdate)
 		event.add('dtend', enddate)
 		event['uid'] = hashlib.md5(title).hexdigest()
