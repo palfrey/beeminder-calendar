@@ -4,7 +4,7 @@
 {% block title %}Beeminder Calendar exporter{% endblock %}
 
 {% block body_content %}
-<a href="https://github.com/palfrey/eventbrite-calendar"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+<a href="https://github.com/palfrey/beeminder-calendar"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="hero-unit span8 offset2">
@@ -15,7 +15,7 @@
 				</p>
 				<p>
 					<ol>
-						<li>Click "Login to Eventbrite" below, and go through the authorisation steps</li>
+						<li>Click "Login to Beeminder" below, and go through the authorisation steps</li>
 						<li>You'll get redirected to an iCal link. This can be then added to your calendar. 
 						e.g. you can use the "Add by URL" in Google Calendar
 						<img src="{{ url_for("static", filename="google-add-by-url.png")}}" />
@@ -31,7 +31,7 @@
 					<b>Privacy policy:</b> there's no database behind here. I don't store any user data, it's all in your
 					HTTP(s) requests. If you lose the end URL (which has the only really useful bit of data - your OAuth
 					token), you'll have to come back to the front page to make a new one, as I don't store it. If you
-					don't believe me, <a href="https://github.com/palfrey/eventbrite-calendar"><abbr title="Read The Friendly Source">RTFS</abbr></a>.
+					don't believe me, <a href="https://github.com/palfrey/beeminder-calendar"><abbr title="Read The Friendly Source">RTFS</abbr></a>.
 				</div>
 			</div>
 		</div>
