@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, make_response
 from flask.ext.bootstrap import Bootstrap
 from urllib2 import urlopen, Request
 import json
@@ -51,10 +51,15 @@ def calendar(username):
 		event.add('summary', "%s fail day" % title)
 		event.add('dtstart', startdate)
 		event.add('dtend', enddate)
+		event.add('last-modified', datetime.now())
 		event['uid'] = hashlib.md5(title).hexdigest()
 		cal.add_component(event)
 
-	return cal.to_ical()
+	resp = make_response(cal.to_ical())
+	resp.headers["Content-Type"] = "text/Calendar"
+	resp.headers["Cache-Control"] = "no-cache, must-revalidate"
+	resp.headers["Expires"] = "Sat, 26 Jul 1997 05:00:00 GMT"
+	return resp
 
 if '__main__' == __name__:
 	app.run(debug=True, port=8080)
