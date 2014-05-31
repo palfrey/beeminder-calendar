@@ -52,7 +52,7 @@ def calendar(username):
 		event.add('dtstart', startdate)
 		event.add('dtend', enddate)
 		event.add('last-modified', datetime.now())
-		event['uid'] = hashlib.md5(title).hexdigest()
+		event['uid'] = hashlib.md5(title + str(startdate)).hexdigest()
 		cal.add_component(event)
 
 	resp = make_response(cal.to_ical())
