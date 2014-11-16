@@ -44,7 +44,10 @@ def calendar(username):
 	cal.add('X-WR-CALNAME', 'Beeminder Calendar for %s'%username)
 
 	for goal in data:
-		startdate = datetime.fromtimestamp(goal["losedate"]).date()
+		start = datetime.fromtimestamp(goal["losedate"])
+		startdate = start.date()
+		if start.hour <=4: # Assume that times before 4am are effectively "yesterday"
+			startdate -= timedelta(days = 1)
 		enddate = startdate + timedelta(days = 1)
 		title = goal["title"]
 		event = Event()
