@@ -23,8 +23,14 @@ site_redirect_address = os.environ["SITE_ADDRESS"] + "/oauth"
 def index():
 	return render_template('index.html', beeminder_client_id = beeminder_client_id, site_redirect_address = site_redirect_address)
 
+def error_page():
+	return render_template('error.html', beeminder_client_id = beeminder_client_id, site_redirect_address = site_redirect_address)
+
 @app.route("/oauth")
 def oauth():
+	error = request.args.get("error", None)
+	if error != None:
+		return error_page()
 	access_token = request.args.get("access_token", None)
 	if access_token == None:
 		return redirect("/")
@@ -40,9 +46,7 @@ def calendar(username):
 		data = urlopen("https://www.beeminder.com/api/v1/users/%s/goals.json?access_token=%s"%(username, access_token)).read()
 		data = json.loads(data)
 	except HTTPError:
-		return render_template('error.html', beeminder_client_id = beeminder_client_id, site_redirect_address = site_redirect_address)
-		resp = make_response("Error getting Beeminder calendar. Possibly need to re-auth?")
-		return resp
+		return error_page()
 
 	cal = Calendar()
 	cal.add('prodid', '-//Beeminder calendar//tevp.net//')
