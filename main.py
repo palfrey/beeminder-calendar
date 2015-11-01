@@ -14,6 +14,7 @@ Bootstrap(app)
 app.config['BOOTSTRAP_USE_MINIFIED'] = True
 app.config['BOOTSTRAP_USE_CDN'] = True
 app.config['BOOTSTRAP_FONTAWESOME'] = True
+app.config['PROPAGATE_EXCEPTIONS'] = True
 
 beeminder_client_id = os.environ["BEEMINDER_CLIENT_ID"]
 site_redirect_address = os.environ["SITE_ADDRESS"] + "/oauth"
