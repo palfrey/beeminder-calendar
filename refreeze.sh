@@ -1,2 +1,2 @@
 #!/bin/sh
-pip freeze -r requirements.txt > requirements.txt
+pip freeze -l -r requirements.txt > requirements.txt

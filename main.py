@@ -1,7 +1,8 @@
 import os
 from flask import Flask, render_template, request, redirect, make_response
 from flask.ext.bootstrap import Bootstrap
-from urllib2 import urlopen, Request, HTTPError
+from urllib.request import urlopen, Request
+from urllib.error import HTTPError
 import json
 from icalendar import Calendar, Event
 import pytz
@@ -35,7 +36,7 @@ def oauth():
 	if access_token == None:
 		return redirect("/")
 	data = urlopen("https://www.beeminder.com/api/v1/users/me.json?access_token=%s"%(access_token)).read()
-	data = json.loads(data)
+	data = json.loads(data.decode(encoding='UTF-8'))
 	return redirect("/calendar/%s?access_token=%s"%(data["username"], access_token))
 
 @app.route('/calendar/<username>')
@@ -44,7 +45,7 @@ def calendar(username):
 
 	try:
 		data = urlopen("https://www.beeminder.com/api/v1/users/%s/goals.json?access_token=%s"%(username, access_token)).read()
-		data = json.loads(data)
+		data = json.loads(data.decode(encoding='UTF-8'))
 	except HTTPError:
 		return error_page()
 
@@ -65,7 +66,7 @@ def calendar(username):
 		event.add('dtstart', startdate)
 		event.add('dtend', enddate)
 		event.add('last-modified', datetime.now())
-		event['uid'] = hashlib.md5(title + str(startdate)).hexdigest()
+		event['uid'] = hashlib.md5(title.encode() + str(startdate).encode()).hexdigest()
 		cal.add_component(event)
 
 	resp = make_response(cal.to_ical())
