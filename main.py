@@ -1,7 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect, make_response
 from flask.ext.bootstrap import Bootstrap
-from urllib2 import urlopen, Request
+from urllib2 import urlopen, Request, HTTPError
 import json
 from icalendar import Calendar, Event
 import pytz
@@ -36,8 +36,13 @@ def oauth():
 def calendar(username):
 	access_token = request.args.get("access_token")
 
-	data = urlopen("https://www.beeminder.com/api/v1/users/%s/goals.json?access_token=%s"%(username, access_token)).read()
-	data = json.loads(data)
+	try:
+		data = urlopen("https://www.beeminder.com/api/v1/users/%s/goals.json?access_token=%s"%(username, access_token)).read()
+		data = json.loads(data)
+	except HTTPError:
+		return render_template('error.html', beeminder_client_id = beeminder_client_id, site_redirect_address = site_redirect_address)
+		resp = make_response("Error getting Beeminder calendar. Possibly need to re-auth?")
+		return resp
 
 	cal = Calendar()
 	cal.add('prodid', '-//Beeminder calendar//tevp.net//')

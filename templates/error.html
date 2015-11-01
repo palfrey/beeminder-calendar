@@ -1,0 +1,13 @@
+{% extends "bootstrap_responsive.html" %}
+{% import "bootstrap_wtf.html" as wtf %}
+
+{% block title %}Beeminder Calendar exporter{% endblock %}
+
+{% block body_content %}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<h2>Got an error trying to connect to Beeminder. Possibly need to re-auth?</h2>
+		<a href="https://www.beeminder.com/apps/authorize?client_id={{beeminder_client_id}}&amp;redirect_uri={{site_redirect_address}}&amp;response_type=token" class="btn btn-large btn-block btn-primary" type="button">Login to Beeminder</a>
+	</div>
+</div>
+{% endblock %}
