@@ -1,5 +1,5 @@
 ## The following requirements were added by pip freeze:
-Flask==0.10.1
+Flask==1.0.2
 Flask-Bootstrap==2.3.2.1
 gunicorn==18.0
 icalendar==3.9.1
