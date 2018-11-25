@@ -3,7 +3,7 @@ Flask==1.0.2
 Flask-Bootstrap==2.3.2.1
 gunicorn==18.0
 icalendar==3.9.1
-itsdangerous==0.22
+itsdangerous==0.24
 Jinja2==2.10
 MarkupSafe==0.23
 python-dateutil==2.4.2
